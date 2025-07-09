@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
     <style>
         body, html {
             margin: 0;
@@ -17,8 +20,14 @@
     </style>
 </head>
 <body>
-    <video autoplay playsinline muted="false">
-        <source src="../videos/sealmas.mp4" type="video/mp4">
+    <video id="sealVideo" autoplay playsinline>
+        <source src="videos/sealmas.mp4" type="video/mp4">
     </video>
+
+    <script>
+        const video = document.getElementById('sealVideo');
+        video.muted = false; // Explicitly set unmuted
+        video.play().catch(e => console.log("Browser blocked autoplay:", e));
+    </script>
 </body>
 </html>
