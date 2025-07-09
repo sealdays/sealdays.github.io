@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>body,html{margin:0;padding:0;height:100%;overflow:hidden}</style>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    <video autoplay width="100%" height="100%">
+    <video id="sealVideo" playsinline muted autoplay loop>
         <source src="../videos/sealmas.mp4" type="video/mp4">
+        <!-- For sealday, change to sealday.mp4 -->
     </video>
+
     <script>
-        document.querySelector('video').onended = function() {
-            document.body.style.backgroundColor = 'black';
-            this.remove();
-        };
+        // Try to unmute after user interaction
+        document.body.addEventListener('click', function() {
+            const video = document.getElementById('sealVideo');
+            video.muted = false;
+        });
+
+        // Force play attempt
+        const video = document.getElementById('sealVideo');
+        video.play().catch(e => {
+            // Show play button if autoplay fails
+            const button = document.createElement('button');
+            button.textContent = 'PLAY';
+            button.style.position = 'fixed';
+            button.style.top = '50%';
+            button.style.left = '50%';
+            button.style.transform = 'translate(-50%, -50%)';
+            button.style.padding = '15px 30px';
+            button.style.fontSize = '20px';
+            button.onclick = function() {
+                video.play();
+                this.remove();
+            };
+            document.body.appendChild(button);
+        });
     </script>
 </body>
 </html>
